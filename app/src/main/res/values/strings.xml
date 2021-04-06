@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Trasset</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="phone_number"> Phone Number </string>
+    <string name="email"> Email </string>
+    <string name="password"> Password</string>
+    <string name="sign_up"> Sign Up</string>
+    <string name="sign_in"> Sign In</string>
+    <string name="user_name">Username</string>
+    <string name="sign_in_image">Sign In Image</string>
+    <string name="rupee" translatable="false">\u20B9 %1$s</string>
+    <string name="rupee_with_negative_sign" translatable="false">-\u20B9 %1$s</string>
+    <string name="rupee_with_positive_sign" translatable="false">+\u20B9 %1$s</string>
+    <string name="from_to">%1$s to %1$s</string>
+    <string name="range">Selected : %1$s to %2$s</string>
+    <string name="sample_desc">This is a description of the group Hello , you understand right. OK then, cool. Hope you are…</string>
+    <string name="sample_username">Tazril Parveez Ali</string>
+    <string name="sample_number">7238127391</string>
+    <string name="property"><![CDATA[<b>%1$s :</b>]]>  %2$s </string>
+</resources>

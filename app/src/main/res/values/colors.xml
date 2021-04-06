@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#546E7A</color>
+
+    <color name="primaryColor">#4dd0e1</color>
+    <color name="primaryLightColor">#88ffff</color>
+    <color name="primaryDarkColor">#009faf</color>
+    <color name="secondaryLightColor">#FFF38E</color>
+    <color name="secondaryDarkColor">#F6E230</color>
+
+    <color name="greenBackgroundColor">#00EEA5</color>
+    <color name="backgroundColor">#F8F8F8</color>
+
+
+
+    <!-- google's material design colours from
+    http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
+
+    <!--reds-->
+    <color name="md_red_800">#C62828</color>
+
+    <!-- pinks -->
+
+    <!-- purples -->
+
+    <!-- deep purples -->
+
+    <!-- indigo -->
+
+    <!--blue-->
+    <color name="md_blue_800">#1565C0</color>
+
+    <!-- light blue-->
+
+    <!-- cyan -->
+
+    <!-- teal -->
+
+    <!-- green -->
+    <color name="md_green_800">#2E7D32</color>
+
+    <!--light green-->
+
+    <!-- lime-->
+
+    <!--yellow -->
+
+    <!--amber-->
+
+    <!--orange-->
+
+    <!--deep orange-->
+
+    <!--brown -->
+
+    <!--grey-->
+    <color name="md_black_1000">#000000</color>
+    <color name="md_white_1000">#ffffff</color>
+    <color name="md_black_1000_alpha">#0D000000</color>
+    <!--blue grey-->
+
+</resources>

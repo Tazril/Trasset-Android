@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="layout_padding">8dp</dimen>
+    <dimen name="element_padding">4dp</dimen>
+    <dimen name="subtitle_text_size">14sp</dimen>
+    <dimen name="title_text_size">24sp</dimen>
+</resources>
