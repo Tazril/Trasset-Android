@@ -1,116 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/cardContainer"
-    android:background="@drawable/white_bg"
-    android:paddingBottom="24dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            tools:text="@string/title" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:textStyle="bold"
-        tools:text="title"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/title_text_size" />
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/sample_desc"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/sample_desc"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
 
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
-    <TextView
-        android:id="@+id/modelNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
-    <TextView
-        android:id="@+id/companyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
-    <TextView
-        android:id="@+id/employeeId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/ebrima"
-        android:maxLines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/asset_img"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"/>-->
+        <TextView
+            android:id="@+id/modelNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/companyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
+
+        <TextView
+            android:id="@+id/employeeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/subtitle_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ebrima"
+            android:text="@string/tap_to_track"
+            android:textColor="@color/primaryColor"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

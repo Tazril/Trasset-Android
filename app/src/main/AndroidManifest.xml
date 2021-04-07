@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".asset.view.AssetActivity"></activity>
+        <activity android:name=".asset.view.AssetActivity" />
         <activity android:name=".authentication.view.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

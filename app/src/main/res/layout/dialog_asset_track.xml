@@ -3,18 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="320dp"
-    android:padding="24dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="24dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/SignUpText"
         style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:padding="@dimen/element_padding"
-        android:text="Geo Features"
-      />
+        android:text="@string/geo_features" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/geofenceSwitch"
@@ -22,42 +21,46 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:checked="false"
-        android:text="Geo Fence"/>
-     <com.google.android.material.switchmaterial.SwitchMaterial
-         android:id="@+id/georouteSwitch"
+        android:text="@string/geo_fence" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/georouteSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:checked="false"
-        android:text="Geo Route"/>
-     <com.google.android.material.switchmaterial.SwitchMaterial
-         android:id="@+id/dateRangeSwitch"
+        android:text="@string/geo_route" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/dateRangeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:checked="false"
-        android:text="Date Range"/>
+        android:text="@string/date_range" />
+
     <TextView
         android:id="@+id/range"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
-        android:text="No Date Range Selected"
         android:gravity="center"
+        android:text="@string/no_date_range_selected"
         android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/subtitle_text_size" />
+        android:textSize="@dimen/subtitle_text_size"
+        android:visibility="invisible" />
+
     <com.google.android.material.button.MaterialButton
-        android:visibility="invisible"
         android:id="@+id/dateRangePickerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Pick Date Range"
+        android:text="@string/pick_date_range"
         android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:visibility="invisible" />
 
 </LinearLayout>

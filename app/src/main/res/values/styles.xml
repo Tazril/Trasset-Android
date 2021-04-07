@@ -15,13 +15,15 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:fontFamily">@font/lato</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent
+        </item>
         <item name="windowActionModeOverlay">true</item>
         <!--<item name="colorOnSurface">@color/colorAccent</item>-->
     </style>
 
     <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">4dp</item>
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSizeTopRight">40dp</item>
+        <item name="cornerSize">8dp</item>
     </style>
 </resources>

@@ -5,9 +5,8 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cwod.trasset.base.BaseFragment
 
-abstract class BaseListFragment<RESPONSEMODEL, OBJECT, ADAPTER : BaseRecyclerAdapter<OBJECT>>() :
+abstract class BaseListFragment<RESPONSEMODEL, OBJECT, ADAPTER : BaseRecyclerAdapter<OBJECT>> :
     BaseFragment<RESPONSEMODEL>() {
 
     abstract val adapter: ADAPTER
@@ -40,7 +39,8 @@ abstract class BaseListFragment<RESPONSEMODEL, OBJECT, ADAPTER : BaseRecyclerAda
                 }
             })
     }
-    infix fun ADAPTER.hasNoDataDisplay(noDataView:View){
+
+    infix fun ADAPTER.hasNoDataDisplay(noDataView: View) {
         this.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
@@ -60,7 +60,7 @@ abstract class BaseListFragment<RESPONSEMODEL, OBJECT, ADAPTER : BaseRecyclerAda
             fun checkEmpty() {
                 noDataView.visibility = (if (adapter.itemCount == 0) View.VISIBLE else View.GONE)
             }
-        } )
+        })
     }
 
 

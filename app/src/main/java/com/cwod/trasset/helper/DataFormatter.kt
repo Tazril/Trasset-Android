@@ -1,6 +1,5 @@
 package com.cwod.trasset.helper
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.cwod.trasset.R
 import net.danlew.android.joda.JodaTimeAndroid
@@ -11,9 +10,7 @@ import org.joda.time.PeriodType
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.PeriodFormatterBuilder
-import java.text.NumberFormat
 import java.util.*
-import kotlin.math.absoluteValue
 
 /*
     DateTimeFormat.fullDateTime().print(1617721556927)
@@ -45,51 +42,12 @@ class DataFormatter constructor(private val context: Context) {
     }
 
 
-    private val currencyFormatter = NumberFormat.getCurrencyInstance(Locale("en", "IN"))
-
-    fun renderMoney(value: Double): String {
-        return try {
-            currencyFormatter.format(value)
-        } catch (ex: IllegalArgumentException) {
-            renderMoney(value.toString())
-        }
-    }
-
-    fun renderMoney(value: String): String {
-        return String.format(context.getString(R.string.rupee), value)
-
-    }
-
-    fun renderFormattedMoney(value: String): String? {
-        return String.format(context.getString(R.string.rupee), getFormatedAmount(value.toDouble()))
-    }
-
-    fun renderMoneyWithSign(value: Double): String? {
-        if (value < 0) return String.format(
-            context.getString(R.string.rupee_with_negative_sign),
-            getFormatedAmount(value.absoluteValue)
-        ) else
-            return String.format(
-                context.getString(R.string.rupee_with_positive_sign),
-                getFormatedAmount(value.absoluteValue)
-            )
-    }
-
-    fun renderPercentage(value: String): String? {
-        return value + " %"
-    }
-
-    fun getDisplayDateMonth(milliseconds: Long): String? {
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM")
-        return dateTimeFormatter.print(milliseconds * 1000)
-    }
-
     fun getDisplayDateMonthYear(milliseconds: Long): String? {
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM YYYY")
         return dateTimeFormatter.print(milliseconds * 1000)
     }
 
-    fun displayDateRange(startDate: Long, endDate: Long): String? {
+    fun displayDateRange(startDate: Long, endDate: Long): String {
         val dateTimeFormatter1: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM")
         val dateTimeFormatter2: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM")
         return String.format(
@@ -104,12 +62,6 @@ class DataFormatter constructor(private val context: Context) {
         return dateTimeFormatter.print(milliseconds)
     }
 
-    @SuppressLint("SimpleDateFormat")
-    fun displayDateAndTime(date: Long): String? {
-        val sdf = java.text.SimpleDateFormat("dd MMM yyyy | HH:mm")
-        sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
-        return sdf.format(Date(date * 1000))
-    }
 
     fun isDateSame(milliseconds1: Long, milliseconds2: Long): Boolean {
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormat.forPattern("dd-MM-YYYY")
@@ -120,10 +72,10 @@ class DataFormatter constructor(private val context: Context) {
 
     fun getDateTime(millis: Long): String {
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormat.forPattern("dd-MM-YYYY hh:mm a")
-
         return dateTimeFormatter.print(millis)
     }
 
+    fun getMediumDateTime(millis: Long): String  = DateTimeFormat.mediumDateTime().print(millis)
 
     fun getDateStamp(milliseconds: Long): String {
         val date = DateTime(milliseconds * 1000)
@@ -172,77 +124,6 @@ class DataFormatter constructor(private val context: Context) {
             )
     }
 
-    fun timeLeft(milliseconds: Long): String? {
-
-        val startDate = DateTime.now()
-        val endDate = DateTime(milliseconds * 1000)
-
-        return if (endDate.isAfter(startDate)) {
-            val builder = PeriodFormatterBuilder()
-                .appendDays()
-                .appendSuffix(" day ", " days ")
-
-            if (Days.daysBetween(startDate, endDate).days < 1) {
-                builder.appendHours()
-                    .appendSuffix(" hour ", " hours ")
-                    .appendMinutes()
-                    .appendSuffix(" minute ", " minutes ")
-                if ((endDate.millis - startDate.millis) / 1000 < 60) {
-                    builder.appendSeconds()
-                        .appendSuffix(" second ", " seconds ")
-                }
-            }
-
-            builder.toFormatter()
-                .print(
-                    Period(
-                        startDate,
-                        endDate,
-                        PeriodType.dayTime()
-                    )
-                )
-        } else {
-            ""
-        }
-
-    }
-
-    fun timeLeftNew(milliseconds: Long): String? {
-
-        val startDate = DateTime.now()
-        val endDate = DateTime(milliseconds * 1000)
-
-        return if (endDate.isAfter(startDate)) {
-            val builder = PeriodFormatterBuilder()
-                .appendDays()
-                .appendSuffix(" day ", " days ")
-
-            if (Days.daysBetween(startDate, endDate).days < 1) {
-                builder.appendHours()
-                    .appendSuffix(" hour ", " hr ")
-                    .appendMinutes()
-                    .appendSuffix(" minute ", " min ")
-                    .appendSeconds()
-                    .appendSuffix(" second ", " sec ")
-            }
-
-            builder.toFormatter()
-                .print(
-                    Period(
-                        startDate,
-                        endDate,
-                        PeriodType.dayTime()
-                    )
-                )
-        } else {
-            ""
-        }
-
-    }
-
-    fun getFormatedAmount(amount: Double): String {
-        return NumberFormat.getNumberInstance(Locale("en", "in")).format(amount)
-    }
 
     fun formatDecimalPlaces(d: Double): String {
         return String.format("%.2f", d)

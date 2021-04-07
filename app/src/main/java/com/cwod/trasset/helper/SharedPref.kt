@@ -20,7 +20,7 @@ object SharedPref {
         return this
     }
 
-    fun getString(key: String): String? = sharedPrefs.getString(key,null)
+    fun getString(key: String): String? = sharedPrefs.getString(key, null)
 
     fun putLong(key: String, value: Long): SharedPref {
         val editor = sharedPrefs.edit()
@@ -29,8 +29,8 @@ object SharedPref {
         return this
     }
 
-    fun getLong(key:String) : Long? = sharedPrefs.getLong(key,0)
+    fun getLong(key: String): Long? = sharedPrefs.getLong(key, 0)
 
-    fun clear() = sharedPrefs.edit().clear().apply();
+    fun clear() = sharedPrefs.edit().clear().apply()
 
 }

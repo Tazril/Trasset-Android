@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cardContainer"
-    android:background="@drawable/white_bg"
-    android:paddingBottom="24dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <TextView
         android:id="@+id/lat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="12dp"
         android:fontFamily="@font/ebrima"
         android:maxLines="2"
         android:text="@string/app_name"
         android:textColor="@color/md_black_1000"
         android:textSize="@dimen/subtitle_text_size" />
+
     <TextView
         android:id="@+id/lon"
         android:layout_width="wrap_content"
@@ -33,6 +32,7 @@
         android:text="@string/app_name"
         android:textColor="@color/md_black_1000"
         android:textSize="@dimen/subtitle_text_size" />
+
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
@@ -47,3 +47,4 @@
         android:textSize="@dimen/subtitle_text_size" />
 
 </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,7 +1,7 @@
 package com.cwod.trasset.home.view
 
-import android.app.AlertDialog
 import android.content.Intent
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import com.cwod.trasset.R
 import com.cwod.trasset.authentication.view.AuthActivity
@@ -10,6 +10,7 @@ import com.cwod.trasset.helper.SharedPref
 import com.cwod.trasset.home.presenter.ProfilePresenter
 import com.cwod.trasset.home.provider.ProfileProvider
 import com.cwod.trasset.home.provider.model.ProfileModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_profile_view.*
 
 
@@ -41,16 +42,21 @@ class ProfileView : BaseFragment<ProfileModel>() {
         presenter = ProfilePresenter(this, ProfileProvider())
         presenter.getProfileResponse()
         logoutBtn.setOnClickListener {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Are You Sure?")
-                .setPositiveButton("Yes"
+            val builder = MaterialAlertDialogBuilder(requireContext())
+            builder
+                .setTitle("Are you Sure?")
+                .setMessage("You will be logout from Trasset")
+                .setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_logout))
+                .setPositiveButton(
+                    "Yes"
                 ) { dialog, id ->
                     SharedPref.clear()
                     val intent = Intent(requireContext(), AuthActivity::class.java)
                     startActivity(intent)
                     requireActivity().finish()
                 }
-                .setNegativeButton("No"
+                .setNegativeButton(
+                    "No"
                 ) { dialog, id ->
                 }
             builder.create().show()

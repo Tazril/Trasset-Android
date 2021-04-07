@@ -1,4 +1,4 @@
-package com.cwod.trasset.helper
+package com.cwod.trasset.common
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -17,16 +18,21 @@ import me.fahmisdk6.avatarview.FontTextView
 import me.fahmisdk6.avatarview.rounded.DynamicRoundedImageView
 import kotlin.random.Random.Default.nextInt
 
-class AvatarImageView(context: Context?, attrs: AttributeSet?) : AvatarView(context, attrs) {
+class AvatarImageView(context: Context, attrs: AttributeSet?) : AvatarView(context, attrs) {
 
     var imgAvatar: DynamicRoundedImageView =
         findViewById<View>(R.id.round_img_avatar) as DynamicRoundedImageView
     var textAvatar: FontTextView = findViewById<View>(R.id.text_avatar_name) as FontTextView
+
     val colors = listOf(
-        R.color.md_blue_800,
-        R.color.md_green_800,
-        R.color.md_red_800
-    ).map { resources.getColor(it) }
+        ContextCompat.getColor(
+            context,
+            R.color.primaryColor
+        ), ContextCompat.getColor(
+            context,
+            R.color.primaryLightColor
+        ), ContextCompat.getColor(context, R.color.primaryDarkColor)
+    )
 
     override fun bind(name: String, pic: String?) {
         textAvatar.visibility = View.GONE

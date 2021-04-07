@@ -1,4 +1,4 @@
-package com.cwod.trasset.helper
+package com.cwod.trasset.common
 
 interface PresenterCallback<T> {
     fun onSuccess(responseModel: T)

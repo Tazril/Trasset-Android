@@ -17,15 +17,15 @@ package com.cwod.trasset.home.provider.model
     "errors": {}
 },*/
 
-data class AssetListModel (
-    val name : String,
-    val desc : String,
-    val image_url : String,
-    val timestamp : String,
-    val type : String,
-    val _id : String,
-    val body : AssetBodyModel,
-    var lat : Double,
-    var lon : Double
+data class AssetListModel(
+    val name: String,
+    val desc: String,
+    val image_url: String,
+    val timestamp: String,
+    val type: String,
+    val _id: String,
+    val body: AssetBodyModel,
+    var lat: Double,
+    var lon: Double
 )
 

@@ -17,7 +17,7 @@ import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
-class SignInView() : BaseFragment<AuthenticationModel>() {
+class SignInView : BaseFragment<AuthenticationModel>() {
 
     override val layoutId: Int = R.layout.fragment_sign_in
     var navController: NavController? = null
@@ -52,8 +52,8 @@ class SignInView() : BaseFragment<AuthenticationModel>() {
 
         if (!this.check(email.text.toString()) || !this.check(password.text.toString())) {
             this.showLong("Please Enter all details")
-        } else if (this.checkPhone(email.text.toString())) {
-            this.showLong("Please Enter Correct Phone Number")
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()) {
+            this.showLong("Please Enter Correct Email Addressr")
         } else {
             userLoginEmail = email.text.toString()
             userLoginPassword = password.text.toString()

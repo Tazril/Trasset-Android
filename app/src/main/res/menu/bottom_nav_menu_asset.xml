@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/AssetTrackView"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_home"
-        android:title="Track" />
+        android:icon="@drawable/ic_track"
+        android:title="Track"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/AssetInfoView"
-        android:icon="@drawable/ic_dashboard"
-        app:showAsAction="ifRoom"
-        android:title="Info" />
+        android:icon="@drawable/ic_info"
+        android:title="Info"
+        app:showAsAction="ifRoom" />
 
 </menu>

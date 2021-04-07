@@ -8,14 +8,14 @@ import androidx.navigation.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cwod.trasset.R
 import com.cwod.trasset.base.BaseActivity
-import com.cwod.trasset.helper.*
+import com.cwod.trasset.helper.Constants
+import com.cwod.trasset.helper.SharedPref
 import com.cwod.trasset.home.view.HomeActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : BaseActivity(R.layout.activity_auth) {
 
-    override lateinit  var progressBar: ProgressBar
-    override var swipeRefreshLayout: SwipeRefreshLayout? = null
+    override lateinit var progressBar: ProgressBar
     override var toolbar: Toolbar? = null
     lateinit var navController: NavController
 
@@ -23,11 +23,10 @@ class AuthActivity : BaseActivity(R.layout.activity_auth) {
     override fun initActivity() {
         SharedPref.instantiate(this)
         progressBar = progressBarMain
-        swipeRefreshLayout = swipeRefreshLayoutMain
         navController = findNavController(R.id.fragmentHostMain)
-        val accessToken:String? = SharedPref.getString(Constants.AUTHORIZATION)
+        val accessToken: String? = SharedPref.getString(Constants.AUTHORIZATION)
 
-        accessToken?.let{
+        accessToken?.let {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()

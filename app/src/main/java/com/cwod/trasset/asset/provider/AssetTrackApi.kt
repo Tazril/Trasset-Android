@@ -1,7 +1,7 @@
 package com.cwod.trasset.asset.provider
 
 import com.cwod.trasset.asset.provider.model.TrackWrapper
-import com.cwod.trasset.helper.BaseModel
+import com.cwod.trasset.common.BaseModel
 import com.cwod.trasset.helper.Urls
 import io.reactivex.Single
 import retrofit2.http.GET

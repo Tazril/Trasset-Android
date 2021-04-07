@@ -4,11 +4,12 @@ import com.cwod.trasset.authentication.model.AuthenticationModel
 import com.cwod.trasset.authentication.model.AuthenticationProvider
 import com.cwod.trasset.authentication.view.SignInView
 import com.cwod.trasset.base.BasePresenter
-import com.cwod.trasset.helper.PresenterCallback
+import com.cwod.trasset.common.PresenterCallback
 
-class AuthenticationSignInPresenter(var view: SignInView, var provider : AuthenticationProvider) : BasePresenter() {
+class AuthenticationSignInPresenter(var view: SignInView, var provider: AuthenticationProvider) :
+    BasePresenter() {
 
-     fun getSignInResponse() {
+    fun getSignInResponse() {
         view.showProgressBar()
         provider.getUserSignInResponse(object : PresenterCallback<AuthenticationModel> {
 
@@ -16,12 +17,15 @@ class AuthenticationSignInPresenter(var view: SignInView, var provider : Authent
                 view.hideProgressBar()
                 view.loadResponse(responseModel)
             }
+
             override fun onFailure(message: String) {
-                view.show("Fails")
+                view.showError(message)
                 view.hideProgressBar()
             }
         }).also { compositeDisposable.add(it) }
+
     }
+
     override fun onCleared() {
         view.hideProgressBar()
         super.onCleared()

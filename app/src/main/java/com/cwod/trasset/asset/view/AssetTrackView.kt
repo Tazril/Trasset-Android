@@ -2,10 +2,11 @@ package com.cwod.trasset.asset.view
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import androidx.core.content.ContextCompat
 import com.cwod.trasset.R
 import com.cwod.trasset.asset.presenter.AssetTrackPresenter
 import com.cwod.trasset.asset.provider.AssetTrackProvider
-import com.cwod.trasset.asset.provider.model.TrackItemModel
 import com.cwod.trasset.asset.provider.model.TrackWrapper
 import com.cwod.trasset.base.BaseFragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -13,10 +14,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.activity_asset.*
 
 
 class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
-    GoogleMap.OnInfoWindowClickListener, DateRangeSelector {
+    DateRangeSelector {
     companion object {
         const val TAG = "AssetsMapView"
 
@@ -44,10 +46,11 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
         set(it) {
             (requireActivity() as AssetActivity)._polyline = it
         }
+
     override fun initView() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        val id = requireActivity().intent.getStringExtra("id")?:"none"
+        val id = requireActivity().intent.getStringExtra("id") ?: "none"
         presenter = AssetTrackPresenter(this, AssetTrackProvider(id))
         presenter.getAssetTrackResponse()
     }
@@ -55,7 +58,6 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
 
     override fun onMapReady(googleMap: GoogleMap) {
         with(googleMap) {
-            setOnInfoWindowClickListener(this@AssetTrackView);
             setInfoWindowAdapter(Popup(requireContext(), markersToData))
             _googleMap = this
             requireActivity()
@@ -63,11 +65,9 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
     }
 
     override fun loadResponse(responseModel: TrackWrapper) {
-        println(responseModel)
-        show("" + responseModel.track.size)
-        if (_googleMap==null) return;
+        if (_googleMap == null) return
         if (responseModel.track.isNotEmpty())
-            _googleMap?.moveCamera(
+            _googleMap?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(
                         responseModel.track[0].lat,
@@ -75,10 +75,13 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
                     ), ZOOM_LEVEL
                 )
             )
-
+        requireActivity().assetName.text = responseModel.asset_data.name
 
         responseModel.geoFence?.apply {
             var polygonOptions = PolygonOptions()
+                .strokeColor(Color.RED)
+                .strokeWidth(2.0f)
+                .fillColor(ContextCompat.getColor(requireContext(), R.color.fenceColorAlpha))
             geometry.coordinates?.get(0)?.forEach { arr ->
                 polygonOptions = polygonOptions.add(LatLng(arr[1], arr[0]))
             }
@@ -88,8 +91,10 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
 
         responseModel.geoRoute?.apply {
             var polylineOptions = PolylineOptions()
-            geometry.coordinates?.forEach {arr ->
-                polylineOptions =  polylineOptions.add(LatLng(arr[1],arr[0]))
+                .color(Color.BLUE)
+                .width(5.0f)
+            geometry.coordinates?.forEach { arr ->
+                polylineOptions = polylineOptions.add(LatLng(arr[1], arr[0]))
             }
             _polyline = _googleMap?.addPolyline(polylineOptions)
             _polyline?.isVisible = false
@@ -100,31 +105,18 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
             val latLng = LatLng(trackItem.lat, trackItem.lon)
             val markerOptions =
                 MarkerOptions().position(latLng)
-            markersToData[_googleMap!!.addMarker(markerOptions)] = trackItem;
+            markersToData[_googleMap!!.addMarker(markerOptions)] = trackItem
 
         }
     }
 
-    override fun onInfoWindowClick(p0: Marker?) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("Track this asset")
-            .setPositiveButton("Yes"
-            ) { dialog, id ->
-                val intent = Intent(context, AssetActivity::class.java)
-                startActivity(intent)
-            }
-            .setNegativeButton("No"
-            ) { dialog, id ->
-            }
-        builder.create().show()
-    }
+
 
     val markersToData
         get() = (requireActivity() as AssetActivity).markersToData
 
     override fun onDateRangeSelect(start: String, end: String) {
-        println("trackbytime "+start+" "+end)
-        presenter.getAssetTrackByTimeResponse(start,end)
+        presenter.getAssetTrackByTimeResponse(start, end)
     }
 
 }

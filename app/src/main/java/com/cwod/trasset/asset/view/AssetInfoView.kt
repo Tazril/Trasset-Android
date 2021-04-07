@@ -23,14 +23,11 @@ class AssetInfoView : BaseFragment<TrackWrapper>() {
     override val layoutId: Int = R.layout.fragment_asset_info
 
     override fun loadResponse(responseModel: TrackWrapper) {
-        println(responseModel.geoFence)
-        println(responseModel.geoRoute)
-        show("" + responseModel.asset_data.name)
 
-        val asset = responseModel.asset_data;
+        val asset = responseModel.asset_data
         //name and type
         nameTextView.text = asset.name
-        typeTextView.text =  asset.type
+        typeTextView.text = asset.type
         Glide.with(this)
             .load(asset.image_url)
             .into(assetImageView)

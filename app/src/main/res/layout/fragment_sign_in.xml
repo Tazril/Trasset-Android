@@ -2,33 +2,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".authentication.view.SignInView">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loginLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/layout_padding">
 
         <TextView
-            android:id="@+id/logoText"
+            style="@style/TextAppearance.MaterialComponents.Headline1"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:contentDescription="@string/sign_in_image"
-            android:padding="20dp"
-            android:textColor="@color/md_white_1000"
-            style="@style/TextAppearance.MaterialComponents.Headline1"
-            android:textStyle="bold"
-            android:gravity="center"
             android:elevation="5dp"
-            android:text="@string/app_name"
+            android:gravity="center"
+            android:padding="20dp"
             android:shadowColor="#000"
             android:shadowDx="1.5"
             android:shadowDy="1.3"
             android:shadowRadius="5"
+            android:text="@string/app_name"
+            android:textColor="@color/md_white_1000"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/userEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +44,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView"
             style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato"
-            android:hint="@string/phone_number"
+            android:hint="@string/email"
             app:layout_constraintBottom_toTopOf="@+id/userPassword"
             app:layout_constraintEnd_toEndOf="@+id/userPassword"
             app:layout_constraintStart_toStartOf="@+id/userPassword"
@@ -73,10 +69,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/userEmailAddressText"
-                android:text="perul365@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:text="@string/login_email" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,37 +91,21 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/userPasswordText"
-                android:text="12345"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@string/login_password" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!--        <com.google.android.material.button.MaterialButton-->
-        <!--            android:id="@+id/forgotPasswordClick"-->
-        <!--            style="@style/Widget.MaterialComponents.Button.TextButton"-->
-        <!--            android:layout_width="176dp"-->
-        <!--            android:layout_height="53dp"-->
-        <!--            android:layout_marginStart="84dp"-->
-        <!--            android:layout_marginLeft="84dp"-->
-        <!--            android:fontFamily="@font/lato"-->
-        <!--            android:text="@string/forgot_password"-->
-        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/loginButton"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.174"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/loginButton"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/userPassword" />-->
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in"
             android:layout_marginTop="16dp"
+            android:text="@string/sign_in"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintBottom_toTopOf="@+id/SignUpNavButton"

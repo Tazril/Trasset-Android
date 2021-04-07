@@ -16,6 +16,7 @@ object ApiClient {
     lateinit var retroClientCache: Retrofit
     var retroClient: Retrofit
     private const val BASE_URL = Urls.BASE_URL
+
     init {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -32,7 +33,7 @@ object ApiClient {
     }
 
 
-    fun instantiateWithAccessToken(context: Context, accessToken: String?) : ApiClient {
+    fun instantiateWithAccessToken(context: Context, accessToken: String?): ApiClient {
         val cache = Cache(context.cacheDir, 5 * 1024 * 1024)     //5 MB
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY

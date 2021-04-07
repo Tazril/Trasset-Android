@@ -16,14 +16,14 @@ package com.cwod.trasset.home.provider.model
   "error": {}
 }*/
 
-data class ProfileModel (
-    val name : String,
-    val email : String,
-    val address : String,
-    val phone : Long,
-    val about : String,
-    val role : String,
-    val _id : String,
-    val isMale : Boolean
+data class ProfileModel(
+    val name: String,
+    val email: String,
+    val address: String,
+    val phone: Long,
+    val about: String,
+    val role: String,
+    val _id: String,
+    val isMale: Boolean
 )
 

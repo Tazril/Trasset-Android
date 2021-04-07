@@ -4,29 +4,26 @@ import android.content.Intent
 import android.text.TextUtils
 import android.widget.EditText
 import androidx.navigation.findNavController
-
 import com.cwod.trasset.R
 import com.cwod.trasset.authentication.model.AuthenticationModel
 import com.cwod.trasset.authentication.model.AuthenticationProvider
 import com.cwod.trasset.authentication.presenter.AuthenticationSignUpPresenter
-import com.cwod.trasset.base.BaseActivity
 import com.cwod.trasset.base.BaseFragment
 import com.cwod.trasset.helper.Constants
 import com.cwod.trasset.helper.SharedPref
 import com.cwod.trasset.home.view.HomeActivity
 import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
 class SignUpView : BaseFragment<AuthenticationModel>() {
 
     override val layoutId: Int = R.layout.fragment_sign_up
-    private lateinit var signUpPresenter : AuthenticationSignUpPresenter
+    private lateinit var signUpPresenter: AuthenticationSignUpPresenter
 
-    lateinit var userName : EditText
-    lateinit var userPassword : EditText
-    lateinit var userEmail : EditText
+    lateinit var userName: EditText
+    lateinit var userPassword: EditText
+    lateinit var userEmail: EditText
 
 
     override fun loadResponse(responseModel: AuthenticationModel) {
@@ -54,22 +51,23 @@ class SignUpView : BaseFragment<AuthenticationModel>() {
     private fun signUp() {
         val jsonObject = JsonObject()
         if (TextUtils.isEmpty(userName.text) || TextUtils.isEmpty(userPassword.text) ||
-                                                    TextUtils.isEmpty(userEmail.text)) {
+            TextUtils.isEmpty(userEmail.text)
+        ) {
             this.showLong("Please enter all details")
-        }
-        else if (this.checkPhone(userEmail.text.toString())){
-            this.showLong("Please Enter Correct Phone Number")
-        }
-        else {
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {
+            this.showLong("Please Enter Correct Email Address")
+        } else {
             jsonObject.addProperty("email", userEmail.text.toString())
             jsonObject.addProperty("name", userName.text.toString())
             jsonObject.addProperty("password", userPassword.text.toString())
-            signUpPresenter = AuthenticationSignUpPresenter(this, AuthenticationProvider(jsonObject))
+            signUpPresenter =
+                AuthenticationSignUpPresenter(this, AuthenticationProvider(jsonObject))
             signUpPresenter.getSignUpResponse()
         }
     }
+
     override fun onDestroyView() {
-        if(this::signUpPresenter.isInitialized)
+        if (this::signUpPresenter.isInitialized)
             signUpPresenter.onCleared()
         super.onDestroyView()
     }

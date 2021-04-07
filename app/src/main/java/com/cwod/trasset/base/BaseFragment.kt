@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import java.util.regex.Pattern
 
-abstract class BaseFragment<T>() : Fragment() {
+abstract class BaseFragment<T> : Fragment() {
 
     abstract val layoutId: Int
     abstract fun loadResponse(responseModel: T)
@@ -20,7 +20,11 @@ abstract class BaseFragment<T>() : Fragment() {
     lateinit var baseActivity: BaseActivity
     var fragmentView: View? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         fragmentView = inflater.inflate(layoutId, container, false)
         baseActivity = (activity as BaseActivity)
         return fragmentView
@@ -38,7 +42,8 @@ abstract class BaseFragment<T>() : Fragment() {
 
     fun hideKeyboard() {
         baseActivity.currentFocus.let {
-            val imm = baseActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                baseActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it?.windowToken, 0)
         }
     }
@@ -67,13 +72,10 @@ abstract class BaseFragment<T>() : Fragment() {
     fun isConnected(): Boolean = baseActivity.isConnected()
 
     // check for empty text
-    fun check(message: String) : Boolean {
+    fun check(message: String): Boolean {
         return message.trim().isNotEmpty()
     }
 
-    fun checkPhone(message: String) : Boolean {
-        var pattern : String = "[0-9]{10}"
-        return Pattern.matches(message, pattern)
-    }
+
 
 }
