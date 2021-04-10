@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import java.util.regex.Pattern
 
 abstract class BaseFragment<T> : Fragment() {
 
@@ -75,7 +74,6 @@ abstract class BaseFragment<T> : Fragment() {
     fun check(message: String): Boolean {
         return message.trim().isNotEmpty()
     }
-
 
 
 }

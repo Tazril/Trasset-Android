@@ -1,5 +1,6 @@
 package com.cwod.trasset.asset.provider
 
+import com.cwod.trasset.asset.provider.model.AssetModel
 import com.cwod.trasset.asset.provider.model.TrackWrapper
 import com.cwod.trasset.common.BaseModel
 import com.cwod.trasset.helper.Urls
@@ -9,6 +10,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AssetTrackApi {
+
+    @GET(Urls.ASSET_INFO)
+    fun getAssetInfoResponse(@Path("id") assetId: String): Single<BaseModel<AssetModel>>
 
     @GET(Urls.ASSET_TRACK)
     fun getAssetTrackResponse(@Path("id") assetId: String): Single<BaseModel<TrackWrapper>>

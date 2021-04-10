@@ -1,9 +1,5 @@
 package com.cwod.trasset.asset.view
 
-import android.app.AlertDialog
-import android.content.Intent
-import android.graphics.Color
-import androidx.core.content.ContextCompat
 import com.cwod.trasset.R
 import com.cwod.trasset.asset.presenter.AssetTrackPresenter
 import com.cwod.trasset.asset.provider.AssetTrackProvider
@@ -14,18 +10,18 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_asset.*
 
 
 class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
-    DateRangeSelector {
+    DateRangeSelector, GoogleMap.OnInfoWindowClickListener {
     companion object {
         const val TAG = "AssetsMapView"
 
     }
 
     lateinit var presenter: AssetTrackPresenter
-    val SYDNEY = LatLng(-33.862, 151.21)
     val ZOOM_LEVEL = 3f
 
 
@@ -47,6 +43,16 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
             (requireActivity() as AssetActivity)._polyline = it
         }
 
+    fun setPolygon(polygonOptions: PolygonOptions) {
+        _polygon = _googleMap?.addPolygon(polygonOptions)
+        _polygon?.isVisible = false
+    }
+
+    fun setPolyline(polylineOptions: PolylineOptions) {
+        _polyline = _googleMap?.addPolyline(polylineOptions)
+        _polyline?.isVisible = false
+    }
+
     override fun initView() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -59,6 +65,7 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
     override fun onMapReady(googleMap: GoogleMap) {
         with(googleMap) {
             setInfoWindowAdapter(Popup(requireContext(), markersToData))
+            setOnInfoWindowClickListener(this@AssetTrackView)
             _googleMap = this
             requireActivity()
         }
@@ -77,46 +84,48 @@ class AssetTrackView : BaseFragment<TrackWrapper>(), OnMapReadyCallback,
             )
         requireActivity().assetName.text = responseModel.asset_data.name
 
-        responseModel.geoFence?.apply {
-            var polygonOptions = PolygonOptions()
-                .strokeColor(Color.RED)
-                .strokeWidth(2.0f)
-                .fillColor(ContextCompat.getColor(requireContext(), R.color.fenceColorAlpha))
-            geometry.coordinates?.get(0)?.forEach { arr ->
-                polygonOptions = polygonOptions.add(LatLng(arr[1], arr[0]))
-            }
-            _polygon = _googleMap?.addPolygon(polygonOptions)
-            _polygon?.isVisible = false
-        }
+        setupMarkers(responseModel)
 
-        responseModel.geoRoute?.apply {
-            var polylineOptions = PolylineOptions()
-                .color(Color.BLUE)
-                .width(5.0f)
-            geometry.coordinates?.forEach { arr ->
-                polylineOptions = polylineOptions.add(LatLng(arr[1], arr[0]))
-            }
-            _polyline = _googleMap?.addPolyline(polylineOptions)
-            _polyline?.isVisible = false
-        }
+    }
+
+    fun setupMarkers(responseModel: TrackWrapper) {
         markersToData.keys.forEach { it.remove() }
         markersToData.clear()
         responseModel.track.forEach { trackItem ->
-            val latLng = LatLng(trackItem.lat, trackItem.lon)
-            val markerOptions =
-                MarkerOptions().position(latLng)
+            val markerOptions = MarkerOptions().position(LatLng(trackItem.lat, trackItem.lon))
             markersToData[_googleMap!!.addMarker(markerOptions)] = trackItem
-
         }
     }
-
-
 
     val markersToData
         get() = (requireActivity() as AssetActivity).markersToData
 
     override fun onDateRangeSelect(start: String, end: String) {
         presenter.getAssetTrackByTimeResponse(start, end)
+    }
+
+
+    override fun onInfoWindowClick(marker: Marker?) {
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        val data = markersToData[marker]!!
+        builder.setTitle("Show Location in Google Maps")
+            .setMessage(presenter.getPopupMessage(data))
+            .setPositiveButton(
+                "Yes"
+            ) { dialog, id ->
+                startActivity(presenter.getGoogleMapsIntent(data))
+            }
+            .setNegativeButton(
+                "No"
+            ) { dialog, id ->
+            }
+        builder.create().show()
+    }
+
+    override fun onDestroyView() {
+        if (this::presenter.isInitialized)
+            presenter.onCleared()
+        super.onDestroyView()
     }
 
 }

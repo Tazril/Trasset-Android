@@ -7,18 +7,17 @@ import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cwod.trasset.R
 import com.cwod.trasset.asset.view.AssetTrackView
 import com.cwod.trasset.base.BaseActivity
 import com.cwod.trasset.common.Notification
 import com.cwod.trasset.common.NotificationAdapter
+import com.cwod.trasset.common.NotificationModel
 import com.cwod.trasset.helper.ApiClient
 import com.cwod.trasset.helper.Constants
 import com.cwod.trasset.helper.SharedPref
-import com.cwod.trasset.home.presenter.NotificationListPresenter
+import com.cwod.trasset.home.presenter.HomeActivityPresenter
 import com.cwod.trasset.home.provider.NotificationListProvider
-import com.cwod.trasset.home.provider.model.NotificationModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -29,7 +28,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home), Notification {
     override var toolbar: Toolbar? = null
     private var activeFragment: Fragment? = null
     var assetType = ""
-    lateinit var notificationListPresenter: NotificationListPresenter
+    lateinit var presenter: HomeActivityPresenter
 
     val adapter = NotificationAdapter()
 
@@ -38,16 +37,17 @@ class HomeActivity : BaseActivity(R.layout.activity_home), Notification {
 
         SharedPref.instantiate(this)
         val accessToken: String? = SharedPref.getString(Constants.AUTHORIZATION)
-//        var email: String? = SharedPref.getString(Constants.EMAIL)
         ApiClient.instantiateWithAccessToken(this, accessToken)
         progressBar = progressBarHome
 
+        //notification setup
         recyclerView.apply {
             hasFixedSize()
             layoutManager = LinearLayoutManager(context)
         }
         recyclerView.adapter = adapter
 
+        //Bottom Navigation
         setUpBottomNavigation()
         sessionNewFAB.setOnClickListener {
             AssetListDialog(
@@ -56,12 +56,12 @@ class HomeActivity : BaseActivity(R.layout.activity_home), Notification {
             ).show(supportFragmentManager, AssetListDialog.TAG)
         }
 
-
+        //Backdrop Animation
         val sheetBehavior = BottomSheetBehavior.from(contentLinearLayout)
         sheetBehavior.isFitToContents = false
-        sheetBehavior.isHideable = false //prevents the boottom sheet from completely hiding off the screen
+        sheetBehavior.isHideable = false
         sheetBehavior.isDraggable = false
-        sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED //initially state to fully expanded
+        sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         notificationIcon.setOnClickListener {
             if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -71,8 +71,8 @@ class HomeActivity : BaseActivity(R.layout.activity_home), Notification {
             }
         }
 
-        notificationListPresenter = NotificationListPresenter(this, NotificationListProvider())
-        notificationListPresenter.getNotificationListResponse()
+        presenter = HomeActivityPresenter(this, NotificationListProvider())
+        presenter.getNotificationListResponse()
     }
 
     private fun setUpBottomNavigation() {
@@ -149,7 +149,6 @@ class HomeActivity : BaseActivity(R.layout.activity_home), Notification {
     }
 
     override fun onNotificationsRecieved(notifications: List<NotificationModel>) {
-        println(notifications)
         adapter.list = notifications
         adapter.notifyDataSetChanged()
     }
@@ -165,5 +164,10 @@ class HomeActivity : BaseActivity(R.layout.activity_home), Notification {
         return super.dispatchTouchEvent(event)
     }
 
+    override fun onDestroy() {
+        if (this::presenter.isInitialized)
+            presenter.onCleared()
+        super.onDestroy()
+    }
 
 }

@@ -4,15 +4,14 @@ import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cwod.trasset.R
-import com.cwod.trasset.asset.presenter.NotificationListPresenter
+import com.cwod.trasset.asset.presenter.AssetActivityPresenter
 import com.cwod.trasset.asset.provider.NotificationListProvider
 import com.cwod.trasset.asset.provider.model.TrackItemModel
 import com.cwod.trasset.base.BaseActivity
 import com.cwod.trasset.common.Notification
 import com.cwod.trasset.common.NotificationAdapter
-import com.cwod.trasset.home.provider.model.NotificationModel
+import com.cwod.trasset.common.NotificationModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polygon
@@ -30,7 +29,7 @@ class AssetActivity : BaseActivity(R.layout.activity_asset), Notification {
     var _polygon: Polygon? = null
     var _polyline: Polyline? = null
     var _googleMap: GoogleMap? = null
-    lateinit var notificationListPresenter: NotificationListPresenter
+    lateinit var presenter: AssetActivityPresenter
     val adapter = NotificationAdapter()
 
     override fun initActivity() {
@@ -48,7 +47,8 @@ class AssetActivity : BaseActivity(R.layout.activity_asset), Notification {
 
         val sheetBehavior = BottomSheetBehavior.from(contentLinearLayout)
         sheetBehavior.isFitToContents = false
-        sheetBehavior.isHideable = false //prevents the bottom sheet from completely hiding off the screen
+        sheetBehavior.isHideable =
+            false //prevents the bottom sheet from completely hiding off the screen
         sheetBehavior.isDraggable = false //prevents user drag
         sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED //initially state to fully expanded
 
@@ -71,8 +71,8 @@ class AssetActivity : BaseActivity(R.layout.activity_asset), Notification {
         recyclerView.adapter = adapter
 
         val id = intent.getStringExtra("id") ?: "none"
-        notificationListPresenter = NotificationListPresenter(this, NotificationListProvider())
-        notificationListPresenter.getNotificationListResponse(id)
+        presenter = AssetActivityPresenter(this, NotificationListProvider())
+        presenter.getNotificationListResponse(id)
 
 
     }
@@ -153,4 +153,11 @@ class AssetActivity : BaseActivity(R.layout.activity_asset), Notification {
         adapter.list = notifications
         adapter.notifyDataSetChanged()
     }
+
+    override fun onDestroy() {
+        if (this::presenter.isInitialized)
+            presenter.onCleared()
+        super.onDestroy()
+    }
+
 }

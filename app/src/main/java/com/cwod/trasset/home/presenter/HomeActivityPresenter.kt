@@ -1,12 +1,12 @@
 package com.cwod.trasset.home.presenter
 
 import com.cwod.trasset.base.BasePresenter
+import com.cwod.trasset.common.NotificationModel
 import com.cwod.trasset.common.PresenterCallback
 import com.cwod.trasset.home.provider.NotificationListProvider
-import com.cwod.trasset.home.provider.model.NotificationModel
 import com.cwod.trasset.home.view.HomeActivity
 
-class NotificationListPresenter(var view: HomeActivity, var provider: NotificationListProvider) :
+class HomeActivityPresenter(var view: HomeActivity, var provider: NotificationListProvider) :
     BasePresenter() {
 
     fun getNotificationListResponse() {

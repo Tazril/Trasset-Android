@@ -75,7 +75,7 @@ class DataFormatter constructor(private val context: Context) {
         return dateTimeFormatter.print(millis)
     }
 
-    fun getMediumDateTime(millis: Long): String  = DateTimeFormat.mediumDateTime().print(millis)
+    fun getMediumDateTime(millis: Long): String = DateTimeFormat.mediumDateTime().print(millis)
 
     fun getDateStamp(milliseconds: Long): String {
         val date = DateTime(milliseconds * 1000)

@@ -5,7 +5,6 @@ import com.bumptech.glide.Glide
 import com.cwod.trasset.R
 import com.cwod.trasset.base.BaseRecyclerAdapter
 import com.cwod.trasset.helper.DataFormatter
-import com.cwod.trasset.home.provider.model.NotificationModel
 import kotlinx.android.synthetic.main.item_notification.view.*
 import org.joda.time.DateTime
 

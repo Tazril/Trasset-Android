@@ -24,8 +24,10 @@ class AuthenticationProvider(val jsonObject: JsonObject) {
                     else callback.onFailure("Error: ${it.error.message}")
                 },
                 onError = {
-                    callback.onFailure(if (it.message != null && it.message!!.contains("401"))
-                        "Invalid Credentials" else "Unable to Login")
+                    callback.onFailure(
+                        if (it.message != null && it.message!!.contains("401"))
+                            "Invalid Credentials" else "Unable to Login"
+                    )
                 }
             )
     }
@@ -41,8 +43,12 @@ class AuthenticationProvider(val jsonObject: JsonObject) {
                     if (it.error?.message == null) it.data?.apply { callback.onSuccess(this) }
                     else callback.onFailure("Error: ${it.error.message}")
                 },
-                onError = { callback.onFailure(if (it.message != null && it.message!!.contains("422"))
-                    "Email Already in Use" else "Unable to Register") }
+                onError = {
+                    callback.onFailure(
+                        if (it.message != null && it.message!!.contains("422"))
+                            "Email Already in Use" else "Unable to Register"
+                    )
+                }
             )
     }
 

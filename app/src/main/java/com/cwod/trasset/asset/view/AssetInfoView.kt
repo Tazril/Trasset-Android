@@ -1,19 +1,19 @@
 package com.cwod.trasset.asset.view
 
-import android.view.View
+import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
 import com.cwod.trasset.R
 import com.cwod.trasset.asset.presenter.AssetInfoPresenter
 import com.cwod.trasset.asset.provider.AssetTrackProvider
-import com.cwod.trasset.asset.provider.model.TrackWrapper
+import com.cwod.trasset.asset.provider.model.AssetModel
 import com.cwod.trasset.base.BaseFragment
 import com.cwod.trasset.helper.DataFormatter
 import kotlinx.android.synthetic.main.fragment_asset_info.*
 import org.joda.time.DateTime
 
 
-class AssetInfoView : BaseFragment<TrackWrapper>() {
+class AssetInfoView : BaseFragment<AssetModel>() {
     companion object {
         const val TAG = "DashboardView"
     }
@@ -22,9 +22,10 @@ class AssetInfoView : BaseFragment<TrackWrapper>() {
 
     override val layoutId: Int = R.layout.fragment_asset_info
 
-    override fun loadResponse(responseModel: TrackWrapper) {
+    override fun loadResponse(responseModel: AssetModel) {
 
-        val asset = responseModel.asset_data
+        val asset = responseModel
+
         //name and type
         nameTextView.text = asset.name
         typeTextView.text = asset.type
@@ -36,24 +37,10 @@ class AssetInfoView : BaseFragment<TrackWrapper>() {
         desc.text = asset.desc
 
         //properties
-        if (asset.body.modelNo !== null)
-            modelNo.text = getDecoratedText("Model Number", asset.body.modelNo)
-        else
-            modelNo.visibility = View.GONE
-        if (asset.body.companyName !== null)
-            companyName.text = getDecoratedText("Company Name ", asset.body.companyName)
-        else
-            companyName.visibility = View.GONE
-        if (asset.body.employeeId !== null)
-            employeeId.text =
-                getDecoratedText("Employee Id", asset.body.employeeId.toString())
-        else
-            employeeId.visibility = View.GONE
-        if (asset.body.address !== null)
-            address.text =
-                getDecoratedText("Address", asset.body.address)
-        else
-            address.visibility = View.GONE
+        setText(modelNo, "Model Number", asset.body.modelNo)
+        setText(companyName, "Company Name", asset.body.companyName)
+        setText(employeeId, "Employee Id", asset.body.employeeId.toString())
+        setText(address, "Address", asset.body.address)
 
         //Location
         lat.text = getDecoratedText("Latitude", asset.lat.toString())
@@ -61,6 +48,11 @@ class AssetInfoView : BaseFragment<TrackWrapper>() {
         val timeMsg =
             DataFormatter.getInstance().getTimeAgo(DateTime(asset.timestamp).millis) + " ago"
         time.text = getDecoratedText("Last Updated", timeMsg)
+    }
+
+    fun setText(textView: TextView, label: String, text: String?) {
+        if (text !== null) textView.text = getDecoratedText(label, text)
+        else textView.hide()
     }
 
     override fun initView() {
@@ -73,4 +65,11 @@ class AssetInfoView : BaseFragment<TrackWrapper>() {
         getString(R.string.property, label, text),
         HtmlCompat.FROM_HTML_MODE_LEGACY
     )
+
+    override fun onDestroyView() {
+        if (this::presenter.isInitialized)
+            presenter.onCleared()
+        super.onDestroyView()
+    }
+
 }

@@ -3,7 +3,6 @@ package com.cwod.trasset.home.view
 import android.content.Intent
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import com.cwod.trasset.R
 import com.cwod.trasset.asset.view.AssetActivity
 import com.cwod.trasset.base.BaseFragment
@@ -59,6 +58,14 @@ class AssetListMapView : BaseFragment<List<AssetListModel>>(), OnMapReadyCallbac
         }
     }
 
+    fun setMarkers(list: List<Pair<MarkerOptions, AssetListModel>>) {
+        markersToData.keys.forEach { it.remove() }
+        markersToData.clear()
+        list.forEach { pair ->
+            markersToData[_googleMap.addMarker(pair.first)] = pair.second
+        }
+    }
+
     override fun loadResponse(responseModel: List<AssetListModel>) {
         if (!this::_googleMap.isInitialized) return
         if (responseModel.isNotEmpty())
@@ -70,44 +77,26 @@ class AssetListMapView : BaseFragment<List<AssetListModel>>(), OnMapReadyCallbac
                     ), ZOOM_LEVEL
                 )
             )
+    }
 
-        val arr = responseModel.map { it.name }
+    fun setUpAutoCompleteSearch(latLngList: List<LatLng>, nameList: List<String>) {
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter(requireContext(), android.R.layout.simple_selectable_list_item, arr)
-        requireActivity().autoComplete.threshold = 1
-        requireActivity().autoComplete.setAdapter(adapter)
-        requireActivity().autoComplete.setOnItemClickListener { parent, view, position, id ->
-            _googleMap.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(
-                        responseModel[position].lat,
-                        responseModel[position].lon
-                    ), FOCUS_ZOOM_LEVEL
-                )
-            )
-        }
-
-        markersToData.keys.forEach { it.remove() }
-        markersToData.clear()
-
-        responseModel.forEach { asset ->
-            val latLng = LatLng(asset.lat, asset.lon)
-            val pickupMarkerDrawable = ContextCompat.getDrawable(
+            ArrayAdapter(
                 requireContext(),
-                if (asset.type == "truck") R.drawable.truck else R.drawable.man
+                android.R.layout.simple_selectable_list_item,
+                nameList
             )
-            val factor = if (asset.type == "truck") 8 else 50
-            val icon = BitmapDescriptorFactory.fromBitmap(
-                pickupMarkerDrawable?.toBitmap(
-                    pickupMarkerDrawable.intrinsicWidth / factor,
-                    pickupMarkerDrawable.intrinsicHeight / factor,
-                    null
+
+        requireActivity().autoComplete.apply {
+            threshold = 1
+            setAdapter(adapter)
+            setOnItemClickListener { parent, view, position, id ->
+                _googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        latLngList[position], FOCUS_ZOOM_LEVEL
+                    )
                 )
-            )
-            val markerOptions =
-                MarkerOptions().position(latLng).title(asset.name).snippet(asset.desc)
-                    .icon(icon)
-            markersToData[_googleMap.addMarker(markerOptions)] = asset
+            }
         }
     }
 
@@ -137,6 +126,12 @@ class AssetListMapView : BaseFragment<List<AssetListModel>>(), OnMapReadyCallbac
 
     override fun onTypeSelect(assetType: String) {
         presenter.getAssetListResponse(assetType)
+    }
+
+    override fun onDestroyView() {
+        if (this::presenter.isInitialized)
+            presenter.onCleared()
+        super.onDestroyView()
     }
 
 }

@@ -1,8 +1,8 @@
 package com.cwod.trasset.home.provider
 
+import com.cwod.trasset.common.NotificationModel
 import com.cwod.trasset.common.PresenterCallback
 import com.cwod.trasset.helper.ApiClient
-import com.cwod.trasset.home.provider.model.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy

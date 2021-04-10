@@ -1,10 +1,11 @@
 package com.cwod.trasset.asset.provider
 
 import com.cwod.trasset.common.BaseModel
+import com.cwod.trasset.common.NotificationModel
 import com.cwod.trasset.helper.Urls
-import com.cwod.trasset.home.provider.model.NotificationModel
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface NotificationListApi {
 

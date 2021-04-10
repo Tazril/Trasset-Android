@@ -1,5 +1,6 @@
 package com.cwod.trasset.asset.provider
 
+import com.cwod.trasset.asset.provider.model.AssetModel
 import com.cwod.trasset.asset.provider.model.TrackWrapper
 import com.cwod.trasset.common.PresenterCallback
 import com.cwod.trasset.helper.ApiClient
@@ -9,6 +10,23 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class AssetTrackProvider(val assetId: String) {
+
+    fun getAssetInfoResponse(callback: PresenterCallback<AssetModel>): Disposable {
+        return ApiClient.retroClientCache.create(AssetTrackApi::class.java)
+            .getAssetInfoResponse(assetId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = {
+                    if (it.error?.message == null)
+                        it.data?.apply { callback.onSuccess(this) }
+                    else callback.onFailure("Error: ${it.error.message}")
+                },
+                onError = { callback.onFailure(it.message ?: "Some Error Occurred") }
+            )
+
+    }
+
 
     fun getAssetTrackResponse(callback: PresenterCallback<TrackWrapper>): Disposable {
         return ApiClient.retroClientCache.create(AssetTrackApi::class.java)

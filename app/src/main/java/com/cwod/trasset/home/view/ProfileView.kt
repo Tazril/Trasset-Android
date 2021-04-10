@@ -26,7 +26,6 @@ class ProfileView : BaseFragment<ProfileModel>() {
     override val layoutId: Int = R.layout.fragment_profile_view
 
     override fun loadResponse(responseModel: ProfileModel) {
-        println(responseModel)
         assetImageView.bind(responseModel.name, "")
         name.text = responseModel.name
         role.text = responseModel.role
@@ -70,4 +69,9 @@ class ProfileView : BaseFragment<ProfileModel>() {
         HtmlCompat.FROM_HTML_MODE_LEGACY
     )
 
+    override fun onDestroyView() {
+        if (this::presenter.isInitialized)
+            presenter.onCleared()
+        super.onDestroyView()
+    }
 }

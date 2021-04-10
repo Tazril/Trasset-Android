@@ -19,7 +19,7 @@ class AuthenticationSignUpPresenter(var view: SignUpView, var provider: Authenti
             }
 
             override fun onFailure(message: String) {
-                view showError  message
+                view showError message
                 view.hideProgressBar()
             }
         }).also { compositeDisposable.add(it) }

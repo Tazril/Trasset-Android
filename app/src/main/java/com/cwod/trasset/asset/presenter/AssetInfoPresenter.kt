@@ -1,7 +1,7 @@
 package com.cwod.trasset.asset.presenter
 
 import com.cwod.trasset.asset.provider.AssetTrackProvider
-import com.cwod.trasset.asset.provider.model.TrackWrapper
+import com.cwod.trasset.asset.provider.model.AssetModel
 import com.cwod.trasset.asset.view.AssetInfoView
 import com.cwod.trasset.base.BasePresenter
 import com.cwod.trasset.common.PresenterCallback
@@ -11,8 +11,8 @@ class AssetInfoPresenter(var view: AssetInfoView, var provider: AssetTrackProvid
 
     fun getAssetTrackResponse() {
         view.showProgressBar()
-        provider.getAssetTrackResponse(object : PresenterCallback<TrackWrapper> {
-            override fun onSuccess(responseModel: TrackWrapper) {
+        provider.getAssetInfoResponse(object : PresenterCallback<AssetModel> {
+            override fun onSuccess(responseModel: AssetModel) {
                 view.loadResponse(responseModel)
                 view.hideProgressBar()
             }

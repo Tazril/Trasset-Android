@@ -31,8 +31,19 @@ class AssetTrackDialog(private val dateRangeSelector: DateRangeSelector?) :
         //init
         _isDateRange = isDateRange
         _dateRange = dateRange
-        geofenceSwitch.isChecked = _polygon?.isVisible ?: false
-        georouteSwitch.isChecked = _polyline?.isVisible ?: false
+
+        if (_polygon != null) {
+            geofenceSwitch.isChecked = _polygon!!.isVisible
+        } else {
+            geofenceSwitch.hide()
+        }
+
+        if (_polygon != null) {
+            georouteSwitch.isChecked = _polyline!!.isVisible
+        } else {
+            georouteSwitch.hide()
+        }
+
         dateRangeSwitch.isChecked = isDateRange
         if (isDateRange) {
             dateRangePickerBtn.show()
@@ -93,7 +104,6 @@ class AssetTrackDialog(private val dateRangeSelector: DateRangeSelector?) :
     }
 
     override fun onDismiss() {
-        println("dismissed ${_isDateRange} ${_dateRange} ${dateRange}")
         if (_isDateRange && _dateRange != dateRange) {
             if (_dateRange.first != 0L)
                 dateRangeSelector?.onDateRangeSelect(

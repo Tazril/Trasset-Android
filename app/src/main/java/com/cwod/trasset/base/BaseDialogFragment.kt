@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.util.regex.Pattern
 
 abstract class BaseDialogFragment<T> : DialogFragment() {
 
@@ -100,7 +99,6 @@ abstract class BaseDialogFragment<T> : DialogFragment() {
     fun check(message: String): Boolean {
         return message.trim().isNotEmpty()
     }
-
 
 
 }

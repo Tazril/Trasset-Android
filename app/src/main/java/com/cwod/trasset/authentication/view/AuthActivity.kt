@@ -5,7 +5,6 @@ import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cwod.trasset.R
 import com.cwod.trasset.base.BaseActivity
 import com.cwod.trasset.helper.Constants

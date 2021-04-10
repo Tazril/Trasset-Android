@@ -54,7 +54,9 @@ class SignUpView : BaseFragment<AuthenticationModel>() {
             TextUtils.isEmpty(userEmail.text)
         ) {
             this.showLong("Please enter all details")
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString())
+                .matches()
+        ) {
             this.showLong("Please Enter Correct Email Address")
         } else {
             jsonObject.addProperty("email", userEmail.text.toString())

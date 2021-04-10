@@ -10,5 +10,6 @@ object Urls {
     const val ASSET_LIST = "/api/asset/list/"
     const val PROFILE = "/user/getuser"
     const val ASSET_TRACK = "/api/asset/track/{id}"
+    const val ASSET_INFO = "/api/asset/info/{id}"
     const val ASSET_TRACK_TIME = "/api/asset/trackbytime/{id}"
 }
