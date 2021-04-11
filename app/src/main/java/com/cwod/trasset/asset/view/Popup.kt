@@ -42,6 +42,7 @@ class Popup(
         return this.view
     }
 
+
     fun getDecoratedText(label: String, text: String) = HtmlCompat.fromHtml(
         context.getString(R.string.property, label, text),
         HtmlCompat.FROM_HTML_MODE_LEGACY

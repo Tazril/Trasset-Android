@@ -10,6 +10,7 @@ import com.cwod.trasset.helper.DataFormatter
 import com.cwod.trasset.home.provider.model.AssetListModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
+import kotlinx.android.synthetic.main.fragment_asset_info.*
 import org.joda.time.DateTime
 
 class Popup(
@@ -24,39 +25,27 @@ class Popup(
 
     override fun getInfoWindow(marker: Marker?): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_popup, null, false)
-        val asset = markersToData[marker]
-        view.findViewById<TextView>(R.id.name).text = asset?.name
-        view.findViewById<TextView>(R.id.desc).text = asset?.desc
-        view.findViewById<TextView>(R.id.type).text =
-            getDecoratedText("Type", asset?.type ?: "Invalid")
+        val asset = markersToData[marker]!!
+        view.findViewById<TextView>(R.id.name).text = asset.name
+        view.findViewById<TextView>(R.id.desc).text = asset.desc
+        setText(view.findViewById(R.id.type), "Type", asset.type ?: "Invalid")
+
         val timeMsg =
-            DataFormatter.getInstance().getTimeAgo(DateTime(asset?.timestamp).millis) + " ago"
-        view.findViewById<TextView>(R.id.time).text = getDecoratedText("Last Updated", timeMsg)
-        if (asset?.body?.modelNo !== null)
-            view.findViewById<TextView>(R.id.modelNo).text =
-                getDecoratedText("Model Number", asset.body.modelNo)
-        else
-            view.findViewById<TextView>(R.id.modelNo).visibility = View.GONE
-        if (asset?.body?.companyName !== null)
-            view.findViewById<TextView>(R.id.companyName).text =
-                getDecoratedText("Company Name ", asset.body.companyName)
-        else
-            view.findViewById<TextView>(R.id.companyName).visibility = View.GONE
-        if (asset?.body?.employeeId !== null)
-            view.findViewById<TextView>(R.id.employeeId).text =
-                getDecoratedText("Employee Id", asset.body.employeeId.toString())
-        else
-            view.findViewById<TextView>(R.id.employeeId).visibility = View.GONE
-        if (asset?.body?.address !== null)
-            view.findViewById<TextView>(R.id.address).text =
-                getDecoratedText("Address", asset.body.address)
-        else
-            view.findViewById<TextView>(R.id.address).visibility = View.GONE
-//        Glide.with(view)
-//            .load(markersToData[marker]?.image_url)
-//            .into(view.findViewById(R.id.asset_img))
+            DataFormatter.getInstance().getTimeAgo(DateTime(asset.timestamp).millis) + " ago"
+        setText(view.findViewById(R.id.time), "Last Updated", timeMsg)
+
+        setText(view.findViewById(R.id.modelNo), "Model Number", asset.body.modelNo)
+        setText(view.findViewById(R.id.companyName), "Company Name", asset.body.companyName)
+        setText(view.findViewById(R.id.employeeId), "Employee Id", asset.body.employeeId)
+        setText(view.findViewById(R.id.address), "Address", asset.body.address)
+
         this.view = view
         return this.view
+    }
+
+    private fun setText(textView: TextView, label: String, text: Any?) {
+        if (text !== null) textView.text = getDecoratedText(label, text.toString())
+        else textView.visibility = View.GONE
     }
 
     fun getDecoratedText(label: String, text: String) = HtmlCompat.fromHtml(

@@ -35,13 +35,13 @@ class AssetTrackDialog(private val dateRangeSelector: DateRangeSelector?) :
         if (_polygon != null) {
             geofenceSwitch.isChecked = _polygon!!.isVisible
         } else {
-            geofenceSwitch.hide()
+            geofenceSwitch.isEnabled = false
         }
 
         if (_polygon != null) {
             georouteSwitch.isChecked = _polyline!!.isVisible
         } else {
-            georouteSwitch.hide()
+            georouteSwitch.isEnabled = false
         }
 
         dateRangeSwitch.isChecked = isDateRange

@@ -39,7 +39,7 @@ class AssetInfoView : BaseFragment<AssetModel>() {
         //properties
         setText(modelNo, "Model Number", asset.body.modelNo)
         setText(companyName, "Company Name", asset.body.companyName)
-        setText(employeeId, "Employee Id", asset.body.employeeId.toString())
+        setText(employeeId, "Employee Id", asset.body.employeeId)
         setText(address, "Address", asset.body.address)
 
         //Location
@@ -50,8 +50,8 @@ class AssetInfoView : BaseFragment<AssetModel>() {
         time.text = getDecoratedText("Last Updated", timeMsg)
     }
 
-    fun setText(textView: TextView, label: String, text: String?) {
-        if (text !== null) textView.text = getDecoratedText(label, text)
+    private fun setText(textView: TextView, label: String, text: Any?) {
+        if (text !== null) textView.text = getDecoratedText(label, text.toString())
         else textView.hide()
     }
 
